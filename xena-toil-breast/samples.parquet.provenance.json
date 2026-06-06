@@ -1,0 +1,34 @@
+{
+  "file": "samples.parquet",
+  "sha256": "93b7d775a54cddf28de69259abcd720e811d6747c435f1674cdd826f05c31955",
+  "bytes": 16016,
+  "shape": { "rows": 1391, "cols": 5, "row_unit": "sample" },
+  "schema": {
+    "columns": [
+      { "name": "sample", "type": "string", "source": "upstream" },
+      { "name": "_study", "type": "string", "source": "upstream" },
+      { "name": "_sample_type", "type": "string", "source": "upstream" },
+      { "name": "role", "type": "string", "source": "derived", "values": ["tumour", "normal", "other"] },
+      { "name": "healthy_baseline", "type": "boolean", "source": "derived" }
+    ]
+  },
+  "built": "2026-05-30T10:00:21Z",
+  "upstream": {
+    "project": "UCSC Xena Toil RNA-seq recompute",
+    "citation": "Vivian, J. et al. Toil enables reproducible, open source, big biomedical data analyses. Nature Biotechnology 35, 314-316 (2017).",
+    "file": "TcgaTargetGTEX_phenotype.txt.gz",
+    "url": "https://toil-xena-hub.s3.us-east-1.amazonaws.com/download/TcgaTargetGTEX_phenotype.txt.gz",
+    "sha256": "ba4d4461cff0fe5e91cc3e58f793aa47ff3c5d6fbf77d65ccff5a07231aaf2db",
+    "bytes": 135753
+  },
+  "derivation": {
+    "operation": "row-subset of pan-cohort phenotype table to _primary_site == \"Breast\"; add two derived columns",
+    "params": { "primary_site": "Breast" },
+    "kept_samples": 1391,
+    "derived_columns": {
+      "role": "case-insensitive match on _sample_type: contains 'normal' => 'normal'; contains 'tumor' or 'metastatic' => 'tumour'; else 'other'",
+      "healthy_baseline": "_study == 'GTEX' AND role == 'normal'"
+    }
+  },
+  "attribution_required": ["UCSC Xena Toil (Vivian et al., 2017)", "TCGA via NCI Genomic Data Commons", "GTEx via GTEx Portal"]
+}

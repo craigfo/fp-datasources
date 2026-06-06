@@ -1,0 +1,31 @@
+{
+  "file": "expression.parquet",
+  "sha256": "39023c897a1a67db51b4f6b0d75000439a284d506cbafe42ded0b13fdbb51986",
+  "bytes": 163452689,
+  "shape": { "rows": 60498, "cols": 1391, "row_unit": "gene", "col_unit": "sample" },
+  "schema": {
+    "index": "ensembl_gene_id",
+    "columns": "sample_id",
+    "values": "log2(TPM + 1)",
+    "normalisation": "RSEM"
+  },
+  "built": "2026-05-30T10:00:21Z",
+  "upstream": {
+    "project": "UCSC Xena Toil RNA-seq recompute",
+    "citation": "Vivian, J. et al. Toil enables reproducible, open source, big biomedical data analyses. Nature Biotechnology 35, 314-316 (2017).",
+    "file": "TcgaTargetGtex_rsem_gene_tpm.gz",
+    "url": "https://toil-xena-hub.s3.us-east-1.amazonaws.com/download/TcgaTargetGtex_rsem_gene_tpm.gz",
+    "sha256": "a8c36cb16ef82eccb0b6e1e62a2af3ab9d54c1f56735bc59dfac4cbbe2391d4d",
+    "bytes": 1323254426,
+    "cohorts": ["TCGA primary tumour", "TCGA solid tissue normal", "GTEx healthy tissue", "TARGET paediatric"]
+  },
+  "derivation": {
+    "operation": "column-subset of pan-cohort matrix to samples with _primary_site == \"Breast\"",
+    "params": { "primary_site": "Breast" },
+    "kept_genes": 60498,
+    "kept_samples": 1391,
+    "value_transform": "none",
+    "gene_filter": "none"
+  },
+  "attribution_required": ["UCSC Xena Toil (Vivian et al., 2017)", "TCGA via NCI Genomic Data Commons", "GTEx via GTEx Portal"]
+}
