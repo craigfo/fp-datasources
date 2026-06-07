@@ -1,0 +1,12 @@
+{
+  "datasource": "tcga-absolute-purity",
+  "description": "TCGA PanCanAtlas ABSOLUTE tumour purity (copy-number-derived; expression-independent), one row per 15-char TCGA sample barcode. The independent purity yardstick for confound tests of expression-derived metrics.",
+  "downloads": [
+    { "file": "abs_tables.txt", "url": "https://api.gdc.cancer.gov/data/4f277128-f793-4354-a13d-30cc7fe9f6b5", "sha256": "f430a975433d82e0098d7405619d4f12a0c765fcd97e7d63cc9b1de7f2d763cd", "source": "GDC PanCanAtlas TCGA_mastercalls.abs_tables_JSedit.fixed.txt (ABSOLUTE)" }
+  ],
+  "extract": { "script": "extract.py", "rule": "call status='called' AND purity not null; key = first 15 chars of array barcode; dedup by min(purity); sorted" },
+  "outputs": [
+    { "file": "purity.parquet", "sha256": "f0204b958d14ca57b472a4a9d6f853acf21750b0edf099eb8cd34efc25efbc46", "shape": "9847 samples x 2 (sample, purity)" }
+  ],
+  "created": "2026-06-07T03:51:05Z"
+}
